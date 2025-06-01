@@ -1,1 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Advanced Verifier</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+    }
+
+    .verifier-card {
+      position: relative;
+      width: 350px;
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      text-align: center;
+      color: #fff;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .verifier-card h1 {
+      margin-bottom: 20px;
+      font-size: 2em;
+      background: linear-gradient(45deg, #00f0ff, #00ff9d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .glow-btn {
+      position: relative;
+      padding: 12px 30px;
+      margin-top: 20px;
+      font-size: 16px;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 30px;
+      background: linear-gradient(90deg, #00f0ff, #00ff9d);
+      box-shadow: 0 0 10px #00ffc8, 0 0 20px #00ffdd;
+      transition: transform 0.3s ease;
+    }
+
+    .glow-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #00ffc8, 0 0 40px #00ffdd;
+    }
+
+    .loader {
+      margin: 20px auto;
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255, 255, 255, 0.1);
+      border-top: 5px solid #00ffcc;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      display: none;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #00ffb3;
+      display: none;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Decorative floating glow */
+    .floating-glow {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: #00ffee;
+      filter: blur(80px);
+      opacity: 0.6;
+      animation: float 6s infinite alternate ease-in-out;
+    }
+
+    .floating-glow:nth-child(1) {
+      top: -40px;
+      left: -40px;
+    }
+
+    .floating-glow:nth-child(2) {
+      bottom: -40px;
+      right: -40px;
+      animation-delay: 2s;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px) translateX(0px); }
+      100% { transform: translateY(30px) translateX(30px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="verifier-card">
+    <div class="floating-glow"></div>
+    <div class="floating-glow"></div>
+    <h1>Identity Verifier</h1>
+    <button class="glow-btn" onclick="startVerification()">Verify Now</button>
+    <div class="loader" id="loader"></div>
+    <div class="result" id="result">✔ Verified Successfully!</div>
+  </div>
+
+  <script>
+    function startVerification() {
+      document.getElementById('loader').style.display = 'block';
+      document.getElementById('result').style.display = 'none';
+
+      setTimeout(() => {
+        document.getElementById('loader').style.display = 'none';
+        document.getElementById('result').style.display = 'block';
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
