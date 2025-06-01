@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Verifier | Neural Authentication System</title>
+    <title>Advanced Verification System</title>
     <style>
         * {
             margin: 0;
@@ -12,805 +12,545 @@
         }
 
         body {
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0a0d1a 0%, #1a1f3a 25%, #0f1428 50%, #1d2447 75%, #0e1324 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0a0f1c 0%, #1a2332 50%, #0f1419 100%);
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
             position: relative;
         }
 
-        /* Advanced Neural Network Background */
-        .neural-network {
-            position: absolute;
+        /* Animated Background Particles */
+        .particles {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
             z-index: 1;
         }
 
-        .neural-node {
+        .particle {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: radial-gradient(circle, #4299ff 0%, rgba(66, 153, 255, 0.3) 100%);
+            width: 2px;
+            height: 2px;
+            background: #3b82f6;
             border-radius: 50%;
-            animation: neuralPulse 3s ease-in-out infinite;
+            animation: float 20s infinite linear;
         }
 
-        .neural-connection {
-            position: absolute;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(66, 153, 255, 0.4), transparent);
-            animation: dataTransfer 4s linear infinite;
-        }
-
-        @keyframes neuralPulse {
-            0%, 100% { 
-                transform: scale(1); 
-                opacity: 0.6;
-                box-shadow: 0 0 10px rgba(66, 153, 255, 0.3);
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0px);
+                opacity: 0;
             }
-            50% { 
-                transform: scale(1.5); 
+            10% {
                 opacity: 1;
-                box-shadow: 0 0 20px rgba(66, 153, 255, 0.8);
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
             }
         }
 
-        @keyframes dataTransfer {
-            0% { opacity: 0; transform: scaleX(0); }
-            20% { opacity: 1; transform: scaleX(0.5); }
-            80% { opacity: 1; transform: scaleX(1); }
-            100% { opacity: 0; transform: scaleX(1); }
-        }
-
-        /* Quantum Grid */
-        .quantum-grid {
-            position: absolute;
+        /* Neural Network Background */
+        .neural-bg {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            z-index: 2;
             background-image: 
-                linear-gradient(rgba(66, 153, 255, 0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(66, 153, 255, 0.08) 1px, transparent 1px);
-            background-size: 40px 40px;
-            animation: quantumShift 25s linear infinite;
-            z-index: 1;
-        }
-
-        @keyframes quantumShift {
-            0% { transform: translate(0, 0) rotate(0deg); opacity: 0.3; }
-            25% { opacity: 0.6; }
-            50% { transform: translate(20px, 20px) rotate(0.5deg); opacity: 0.8; }
-            75% { opacity: 0.4; }
-            100% { transform: translate(40px, 40px) rotate(1deg); opacity: 0.3; }
+                radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(29, 78, 216, 0.05) 0%, transparent 50%);
         }
 
         /* Main Container */
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+        .verifier-container {
             position: relative;
             z-index: 10;
-        }
-
-        /* Quantum Verification Terminal */
-        .verification-terminal {
-            background: linear-gradient(135deg, 
-                rgba(15, 25, 45, 0.95) 0%, 
-                rgba(25, 35, 55, 0.9) 50%, 
-                rgba(15, 25, 45, 0.95) 100%);
-            backdrop-filter: blur(25px) saturate(150%);
-            border: 2px solid rgba(66, 153, 255, 0.3);
-            border-radius: 28px;
-            padding: 80px 60px;
-            width: 600px;
-            max-width: 90vw;
-            text-align: center;
-            position: relative;
+            width: 420px;
+            height: 520px;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
             box-shadow: 
-                0 25px 80px rgba(0, 0, 0, 0.6),
-                0 0 150px rgba(66, 153, 255, 0.15),
-                inset 0 2px 0 rgba(255, 255, 255, 0.1),
-                inset 0 -2px 0 rgba(66, 153, 255, 0.2);
-            animation: terminalMaterialize 1.5s cubic-bezier(0.23, 1, 0.32, 1);
-            overflow: hidden;
+                0 25px 50px -12px rgba(0, 0, 0, 0.8),
+                0 0 0 1px rgba(59, 130, 246, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            animation: containerEntry 1s ease-out;
         }
 
-        @keyframes terminalMaterialize {
+        @keyframes containerEntry {
             0% {
                 opacity: 0;
-                transform: translateY(100px) scale(0.8) rotateX(15deg);
-                filter: blur(10px);
+                transform: translateY(30px) scale(0.95);
             }
             100% {
                 opacity: 1;
-                transform: translateY(0) scale(1) rotateX(0deg);
-                filter: blur(0px);
+                transform: translateY(0) scale(1);
             }
         }
 
-        /* Quantum Border System */
-        .verification-terminal::before {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            background: linear-gradient(45deg, 
-                #4299ff 0%, #00d4ff 25%, #4299ff 50%, #0080ff 75%, #4299ff 100%);
-            background-size: 800% 800%;
-            border-radius: 32px;
-            z-index: -1;
-            animation: quantumBorder 4s ease-in-out infinite;
-            opacity: 0.8;
-        }
-
-        .verification-terminal::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 120%;
-            height: 120%;
-            background: radial-gradient(circle, transparent 40%, rgba(66, 153, 255, 0.05) 100%);
-            transform: translate(-50%, -50%);
-            z-index: -2;
-            animation: quantumAura 6s ease-in-out infinite;
-        }
-
-        @keyframes quantumBorder {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        @keyframes quantumAura {
-            0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 0.3; }
-            50% { transform: translate(-50%, -50%) scale(1.1) rotate(180deg); opacity: 0.7; }
-        }
-
-        /* Header System */
+        /* Header */
         .header {
-            margin-bottom: 50px;
+            text-align: center;
+            margin-bottom: 40px;
         }
 
-        .quantum-logo {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 30px;
-            background: linear-gradient(135deg, #4299ff 0%, #00d4ff 50%, #0080ff 100%);
-            border-radius: 50%;
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border-radius: 20px;
+            margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            animation: quantumRotation 8s linear infinite;
+            animation: logoSpin 3s ease-out infinite;
         }
 
-        @keyframes quantumRotation {
-            0% { 
-                transform: rotate(0deg) scale(1); 
-                box-shadow: 0 0 40px rgba(66, 153, 255, 0.6);
-                filter: hue-rotate(0deg);
-            }
-            25% { 
-                box-shadow: 0 0 60px rgba(66, 153, 255, 0.8);
-                filter: hue-rotate(90deg);
-            }
-            50% { 
-                transform: rotate(180deg) scale(1.05); 
-                box-shadow: 0 0 80px rgba(0, 212, 255, 0.9);
-                filter: hue-rotate(180deg);
-            }
-            75% { 
-                box-shadow: 0 0 60px rgba(66, 153, 255, 0.8);
-                filter: hue-rotate(270deg);
-            }
-            100% { 
-                transform: rotate(360deg) scale(1); 
-                box-shadow: 0 0 40px rgba(66, 153, 255, 0.6);
-                filter: hue-rotate(360deg);
-            }
+        @keyframes logoSpin {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
         }
 
-        .quantum-logo::before {
+        .logo::before {
             content: '';
             width: 40px;
             height: 40px;
-            background: white;
-            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
             position: relative;
-            animation: coreEnergy 3s ease-in-out infinite;
+            animation: innerPulse 2s ease-in-out infinite;
         }
 
-        @keyframes coreEnergy {
-            0%, 100% { 
-                transform: scale(1); 
-                box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-            }
-            50% { 
-                transform: scale(1.2); 
-                box-shadow: 0 0 40px rgba(255, 255, 255, 1);
-            }
+        @keyframes innerPulse {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.2); opacity: 0.7; }
         }
 
-        .system-title {
-            font-size: 42px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ffffff 0%, #4299ff 50%, #00d4ff 100%);
-            background-clip: text;
+        .title {
+            color: #f8fafc;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #f8fafc, #cbd5e1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-            letter-spacing: -1px;
-            text-shadow: 0 0 30px rgba(66, 153, 255, 0.3);
+            background-clip: text;
         }
 
-        .system-subtitle {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 18px;
-            font-weight: 300;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+        .subtitle {
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.8;
         }
 
-        /* Advanced Biometric Scanner */
-        .biometric-scanner {
+        /* Verification Circle */
+        .verification-circle {
             position: relative;
-            width: 350px;
-            height: 350px;
-            margin: 50px auto;
-            border: 3px solid rgba(66, 153, 255, 0.4);
-            border-radius: 50%;
-            background: radial-gradient(circle, 
-                rgba(66, 153, 255, 0.1) 0%, 
-                rgba(66, 153, 255, 0.05) 40%, 
-                transparent 70%);
+            width: 180px;
+            height: 180px;
+            margin: 30px 0;
         }
 
-        .scanner-rings {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .scanner-ring {
-            position: absolute;
-            border: 2px solid #4299ff;
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .ring-outer {
-            width: 280px;
-            height: 280px;
-            animation: scannerPulse 3s ease-in-out infinite;
-            border-color: rgba(66, 153, 255, 0.6);
-        }
-
-        .ring-middle {
-            width: 200px;
-            height: 200px;
-            animation: scannerPulse 3s ease-in-out infinite 0.5s;
-            border-color: rgba(0, 212, 255, 0.8);
-        }
-
-        .ring-inner {
-            width: 120px;
-            height: 120px;
-            animation: scannerPulse 3s ease-in-out infinite 1s;
-            border-color: rgba(66, 153, 255, 1);
-        }
-
-        @keyframes scannerPulse {
-            0%, 100% { 
-                transform: translate(-50%, -50%) scale(1); 
-                opacity: 1;
-                box-shadow: 0 0 30px currentColor;
-            }
-            50% { 
-                transform: translate(-50%, -50%) scale(1.15); 
-                opacity: 0.6;
-                box-shadow: 0 0 60px currentColor;
-            }
-        }
-
-        /* Quantum Scan Beam */
-        .quantum-beam {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(66, 153, 255, 0.5) 20%, 
-                #4299ff 50%, 
-                rgba(66, 153, 255, 0.5) 80%, 
-                transparent 100%);
-            transform: translateY(-50%);
-            animation: quantumScan 4s linear infinite;
-            box-shadow: 0 0 20px #4299ff;
-        }
-
-        @keyframes quantumScan {
-            0% { transform: translateY(-50%) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-50%) rotate(360deg); opacity: 0.8; }
-        }
-
-        /* Neural Progress Matrix */
-        .progress-matrix {
-            margin: 50px 0;
-            padding: 0 30px;
-        }
-
-        .progress-container {
+        .circle-bg {
             width: 100%;
-            height: 8px;
-            background: linear-gradient(90deg, 
-                rgba(66, 153, 255, 0.2) 0%, 
-                rgba(66, 153, 255, 0.3) 50%, 
-                rgba(66, 153, 255, 0.2) 100%);
-            border-radius: 4px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .progress-neural {
             height: 100%;
-            background: linear-gradient(90deg, 
-                #4299ff 0%, 
-                #00d4ff 25%, 
-                #4299ff 50%, 
-                #0080ff 75%, 
-                #4299ff 100%);
-            background-size: 200% 100%;
-            border-radius: 4px;
-            width: 0%;
-            animation: 
-                neuralProgress 7s cubic-bezier(0.4, 0, 0.2, 1) forwards,
-                neuralFlow 2s linear infinite;
-            position: relative;
-            box-shadow: 0 0 20px rgba(66, 153, 255, 0.6);
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #1e293b, #3b82f6, #1d4ed8, #1e293b);
+            padding: 3px;
+            animation: circleRotate 2s linear infinite;
         }
 
-        .progress-neural::after {
+        @keyframes circleRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .circle-inner {
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 41, 59, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .circle-inner::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(255,255,255,0.4) 30%, 
-                rgba(255,255,255,0.6) 50%, 
-                rgba(255,255,255,0.4) 70%, 
-                transparent 100%);
-            animation: neuralShine 3s ease-in-out infinite;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            animation: innerGlow 2s ease-in-out infinite;
         }
 
-        @keyframes neuralProgress {
-            0% { width: 0%; }
-            12% { width: 18%; }
-            25% { width: 32%; }
-            40% { width: 50%; }
-            55% { width: 68%; }
-            75% { width: 85%; }
-            100% { width: 100%; }
+        @keyframes innerGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
         }
 
-        @keyframes neuralFlow {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 200% 0%; }
+        .progress-text {
+            color: #3b82f6;
+            font-size: 32px;
+            font-weight: 700;
+            z-index: 1;
+            animation: textPulse 1s ease-in-out infinite;
         }
 
-        @keyframes neuralShine {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(400%); }
+        @keyframes textPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
-        .progress-label {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 16px;
-            margin-top: 15px;
-            font-weight: 600;
+        .status-text {
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 500;
+            margin-top: 8px;
+            z-index: 1;
+            text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        /* Quantum Status Display */
-        .status-matrix {
-            margin: 40px 0;
-            height: 80px;
+        /* Status Messages */
+        .status-messages {
+            text-align: center;
+            margin-top: 20px;
+            height: 60px;
             display: flex;
             align-items: center;
-            justify-content: center;
         }
 
-        .status-display {
-            color: #4299ff;
-            font-size: 18px;
-            font-weight: 600;
-            letter-spacing: 1px;
+        .status-message {
+            color: #cbd5e1;
+            font-size: 14px;
+            font-weight: 500;
             opacity: 0;
-            animation: statusMatrix 1.2s ease-in-out forwards;
-            text-shadow: 0 0 20px rgba(66, 153, 255, 0.5);
+            transform: translateY(10px);
+            animation: messageSlide 0.5s ease-out forwards;
         }
 
-        @keyframes statusMatrix {
-            0% { 
-                opacity: 0; 
-                transform: translateY(20px) scale(0.9); 
-                filter: blur(5px);
-            }
-            100% { 
-                opacity: 1; 
-                transform: translateY(0) scale(1); 
-                filter: blur(0px);
+        @keyframes messageSlide {
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        /* Quantum Data Streams */
-        .data-stream {
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: rgba(59, 130, 246, 0.2);
+            border-radius: 2px;
+            margin-top: 30px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #1d4ed8, #3b82f6);
+            background-size: 200% 100%;
+            border-radius: 2px;
+            width: 0%;
+            animation: progressFlow 1s ease-in-out infinite;
+            transition: width 0.3s ease-out;
+        }
+
+        @keyframes progressFlow {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Scanning Lines Effect */
+        .scanning-lines {
             position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .scan-line {
+            position: absolute;
+            width: 100%;
             height: 2px;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(66, 153, 255, 0.6) 30%, 
-                #4299ff 50%, 
-                rgba(66, 153, 255, 0.6) 70%, 
-                transparent 100%);
+            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+            animation: scanMove 2s ease-in-out infinite;
         }
 
-        .stream-1 {
-            top: 20%;
-            left: -50px;
-            width: 150px;
-            animation: dataFlow1 4s linear infinite;
+        @keyframes scanMove {
+            0% { top: 0%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
         }
 
-        .stream-2 {
-            top: 60%;
-            right: -50px;
-            width: 120px;
-            animation: dataFlow2 3.5s linear infinite 1s;
+        /* Success Animation */
+        .success-checkmark {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #059669;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: successPop 0.6s ease-out;
         }
 
-        .stream-3 {
-            top: 80%;
-            left: -50px;
-            width: 180px;
-            animation: dataFlow3 5s linear infinite 2s;
+        @keyframes successPop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
 
-        @keyframes dataFlow1 {
-            0% { transform: translateX(-200px); opacity: 0; }
-            20% { opacity: 1; }
-            80% { opacity: 1; }
-            100% { transform: translateX(700px); opacity: 0; }
+        .checkmark {
+            width: 24px;
+            height: 24px;
+            stroke: white;
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
-        @keyframes dataFlow2 {
-            0% { transform: translateX(200px); opacity: 0; }
-            20% { opacity: 1; }
-            80% { opacity: 1; }
-            100% { transform: translateX(-700px); opacity: 0; }
+        .checkmark path {
+            stroke-dasharray: 20;
+            stroke-dashoffset: 20;
+            animation: checkmarkDraw 0.3s ease-out 0.3s fill-forwards;
         }
 
-        @keyframes dataFlow3 {
-            0% { transform: translateX(-250px); opacity: 0; }
-            25% { opacity: 1; }
-            75% { opacity: 1; }
-            100% { transform: translateX(750px); opacity: 0; }
+        @keyframes checkmarkDraw {
+            to { stroke-dashoffset: 0; }
         }
 
-        /* Completion Status */
-        .completion-matrix {
-            opacity: 0;
-            animation: completionReveal 1s ease-out 7s forwards;
+        /* Loading Dots */
+        .loading-dots {
+            display: flex;
+            gap: 4px;
+            margin-top: 10px;
         }
 
-        @keyframes completionReveal {
-            0% { 
-                opacity: 0; 
-                transform: translateY(30px) scale(0.9);
-                filter: blur(10px);
-            }
-            100% { 
-                opacity: 1; 
-                transform: translateY(0) scale(1);
-                filter: blur(0px);
-            }
+        .dot {
+            width: 6px;
+            height: 6px;
+            background: #3b82f6;
+            border-radius: 50%;
+            animation: dotBounce 1.4s ease-in-out infinite;
         }
 
-        .completion-text {
-            color: #00ff88;
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
-            margin-bottom: 20px;
-        }
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
 
-        .redirect-info {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 16px;
-            font-weight: 400;
+        @keyframes dotBounce {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1.2); opacity: 1; }
         }
 
         /* Responsive Design */
-        @media (max-width: 768px) {
-            .verification-terminal {
-                padding: 60px 40px;
-                width: 95vw;
-            }
-            
-            .biometric-scanner {
-                width: 280px;
-                height: 280px;
-            }
-            
-            .system-title {
-                font-size: 32px;
-            }
-
-            .ring-outer { width: 220px; height: 220px; }
-            .ring-middle { width: 160px; height: 160px; }
-            .ring-inner { width: 100px; height: 100px; }
-        }
-
         @media (max-width: 480px) {
-            .verification-terminal {
-                padding: 40px 25px;
+            .verifier-container {
+                width: 90%;
+                max-width: 380px;
+                height: 480px;
+                padding: 30px;
             }
             
-            .biometric-scanner {
-                width: 240px;
-                height: 240px;
+            .verification-circle {
+                width: 160px;
+                height: 160px;
             }
             
-            .system-title {
-                font-size: 28px;
+            .title {
+                font-size: 24px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="neural-network" id="neuralNetwork"></div>
-    <div class="quantum-grid"></div>
+    <!-- Animated Background -->
+    <div class="particles" id="particles"></div>
+    <div class="neural-bg"></div>
     
-    <div class="container">
-        <div class="verification-terminal">
-            <div class="data-stream stream-1"></div>
-            <div class="data-stream stream-2"></div>
-            <div class="data-stream stream-3"></div>
-            
-            <div class="header">
-                <div class="quantum-logo"></div>
-                <h1 class="system-title">Device Verification</h1>
-                <p class="system-subtitle">Quantum Authentication System</p>
-            </div>
-            
-            <div class="biometric-scanner">
-                <div class="scanner-rings">
-                    <div class="scanner-ring ring-outer"></div>
-                    <div class="scanner-ring ring-middle"></div>
-                    <div class="scanner-ring ring-inner"></div>
+    <!-- Main Verifier Container -->
+    <div class="verifier-container">
+        <div class="scanning-lines">
+            <div class="scan-line"></div>
+        </div>
+        
+        <div class="header">
+            <div class="logo"></div>
+            <h1 class="title">Device Verification</h1>
+            <p class="subtitle">Quantum Security Protocol</p>
+        </div>
+        
+        <div class="verification-circle">
+            <div class="circle-bg">
+                <div class="circle-inner">
+                    <div class="progress-text" id="progressText">0%</div>
+                    <div class="status-text" id="statusText">INITIALIZING</div>
+                    <div class="loading-dots">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
                 </div>
-                <div class="quantum-beam"></div>
             </div>
-            
-            <div class="progress-matrix">
-                <div class="progress-container">
-                    <div class="progress-neural"></div>
-                </div>
-                <div class="progress-label" id="progressLabel">Initializing quantum encryption protocols...</div>
-            </div>
-            
-            <div class="status-matrix">
-                <div class="status-display" id="statusDisplay">Scanning biometric patterns...</div>
-            </div>
-            
-            <div class="completion-matrix">
-                <div class="completion-text">Access Granted</div>
-                <div class="redirect-info">Redirecting to secure environment...</div>
-            </div>
+        </div>
+        
+        <div class="success-checkmark" id="successCheck">
+            <svg class="checkmark" viewBox="0 0 24 24">
+                <path d="M20 6L9 17l-5-5"/>
+            </svg>
+        </div>
+        
+        <div class="status-messages">
+            <div class="status-message" id="statusMessage">Establishing secure connection...</div>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
         </div>
     </div>
 
     <script>
-        // Advanced Neural Network Generation
-        function generateNeuralNetwork() {
-            const network = document.getElementById('neuralNetwork');
-            const nodeCount = 25;
-            const nodes = [];
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
             
-            // Create neural nodes
-            for (let i = 0; i < nodeCount; i++) {
-                const node = document.createElement('div');
-                node.className = 'neural-node';
-                
-                const x = Math.random() * 90 + 5;
-                const y = Math.random() * 90 + 5;
-                
-                node.style.left = x + '%';
-                node.style.top = y + '%';
-                node.style.animationDelay = Math.random() * 3 + 's';
-                node.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                
-                network.appendChild(node);
-                nodes.push({ element: node, x, y });
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particlesContainer.appendChild(particle);
             }
+        }
+
+        // Verification sequence
+        function startVerification() {
+            const progressText = document.getElementById('progressText');
+            const statusText = document.getElementById('statusText');
+            const statusMessage = document.getElementById('statusMessage');
+            const progressBar = document.getElementById('progressBar');
+            const successCheck = document.getElementById('successCheck');
+            const verificationCircle = document.querySelector('.verification-circle');
             
-            // Create connections between nearby nodes
-            for (let i = 0; i < nodes.length; i++) {
-                for (let j = i + 1; j < nodes.length; j++) {
-                    const dx = nodes[j].x - nodes[i].x;
-                    const dy = nodes[j].y - nodes[i].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
+            const stages = [
+                { progress: 15, status: 'SCANNING', message: 'Analyzing security protocols...', duration: 1000 },
+                { progress: 35, status: 'PROCESSING', message: 'Validating quantum signatures...', duration: 1000 },
+                { progress: 55, status: 'VERIFYING', message: 'Cross-referencing neural networks...', duration: 1000 },
+                { progress: 75, status: 'AUTHENTICATING', message: 'Establishing encrypted tunnel...', duration: 1000 },
+                { progress: 90, status: 'FINALIZING', message: 'Optimizing connection matrix...', duration: 1000 },
+                { progress: 100, status: 'COMPLETE', message: 'Verification successful! Redirecting...', duration: 2000 }
+            ];
+            
+            let currentStage = 0;
+            
+            function updateStage() {
+                if (currentStage < stages.length) {
+                    const stage = stages[currentStage];
                     
-                    if (distance < 25 && Math.random() > 0.7) {
-                        const connection = document.createElement('div');
-                        connection.className = 'neural-connection';
+                    // Smooth progress animation
+                    const startProgress = currentStage === 0 ? 0 : stages[currentStage - 1].progress;
+                    const targetProgress = stage.progress;
+                    const duration = 800;
+                    const startTime = Date.now();
+                    
+                    function animateProgress() {
+                        const elapsed = Date.now() - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const easeProgress = 1 - Math.pow(1 - progress, 3); // Ease-out cubic
                         
-                        const angle = Math.atan2(dy, dx);
-                        const length = distance;
+                        const currentProgress = startProgress + (targetProgress - startProgress) * easeProgress;
+                        progressText.textContent = Math.round(currentProgress) + '%';
+                        progressBar.style.width = currentProgress + '%';
                         
-                        connection.style.left = nodes[i].x + '%';
-                        connection.style.top = nodes[i].y + '%';
-                        connection.style.width = length + '%';
-                        connection.style.transformOrigin = '0 50%';
-                        connection.style.transform = `rotate(${angle}rad)`;
-                        connection.style.animationDelay = Math.random() * 4 + 's';
-                        
-                        network.appendChild(connection);
+                        if (progress < 1) {
+                            requestAnimationFrame(animateProgress);
+                        }
+                    }
+                    
+                    animateProgress();
+                    
+                    // Update status with slight delay
+                    setTimeout(() => {
+                        statusText.textContent = stage.status;
+                        statusMessage.textContent = stage.message;
+                        statusMessage.style.animation = 'none';
+                        statusMessage.offsetHeight; // Trigger reflow
+                        statusMessage.style.animation = 'messageSlide 0.5s ease-out forwards';
+                    }, 200);
+                    
+                    // Handle completion
+                    if (stage.progress === 100) {
+                        setTimeout(() => {
+                            verificationCircle.style.display = 'none';
+                            successCheck.style.display = 'flex';
+                            
+                            // Redirect after success animation
+                            setTimeout(() => {
+                                window.location.href = 'https://studyplannertask.vercel.app/';
+                            }, 1500);
+                        }, stage.duration);
+                    } else {
+                        setTimeout(() => {
+                            currentStage++;
+                            updateStage();
+                        }, stage.duration);
                     }
                 }
             }
-        }
-
-        // Advanced Authentication Messages
-        const progressMessages = [
-            "Initializing quantum encryption protocols...",
-            "Establishing neural network connections...",
-            "Analyzing biometric signature matrix...",
-            "Validating quantum identity tokens...",
-            "Processing multi-dimensional authentication...",
-            "Synchronizing with secure quantum servers...",
-            "Finalizing identity verification sequence...",
-            "Authentication matrix complete..."
-        ];
-
-        const statusMessages = [
-            "Scanning biometric patterns...",
-            "Processing retinal signature...",
-            "Analyzing DNA quantum markers...",
-            "Validating neural pathways...",
-            "Decrypting identity matrix...",
-            "Confirming quantum signature...",
-            "Establishing secure connection...",
-            "Access verification complete..."
-        ];
-
-        let progressIndex = 0;
-        let statusIndex = 0;
-
-        function updateAuthenticationStatus() {
-            const progressLabel = document.getElementById('progressLabel');
-            const statusDisplay = document.getElementById('statusDisplay');
             
-            // Update progress messages
-            if (progressIndex < progressMessages.length - 1) {
-                setTimeout(() => {
-                    progressLabel.textContent = progressMessages[++progressIndex];
-                    updateAuthenticationStatus();
-                }, 875); // 7000ms / 8 messages = 875ms per message
-            }
-            
-            // Update status messages
-            if (statusIndex < statusMessages.length - 1) {
-                setTimeout(() => {
-                    statusDisplay.style.animation = 'none';
-                    statusDisplay.offsetHeight; // Force reflow
-                    statusDisplay.style.animation = 'statusMatrix 1.2s ease-in-out forwards';
-                    statusDisplay.textContent = statusMessages[++statusIndex];
-                    
-                    if (statusIndex < statusMessages.length - 1) {
-                        setTimeout(() => updateAuthenticationStatus(), 175);
-                    }
-                }, 1050); // Slightly faster status updates
-            }
+            updateStage();
         }
-
-        // Automatic Redirect Function
-        function initiateRedirect() {
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Start verification after a brief delay
             setTimeout(() => {
-                // Add final transition effect
-                document.body.style.transition = 'all 1s ease-out';
-                document.body.style.opacity = '0';
-                document.body.style.transform = 'scale(1.1)';
-                
-                setTimeout(() => {
-                    window.location.href = 'https://studyplannertask.vercel.app/';
-                }, 1000);
-            }, 8000); // 7 seconds verification + 1 second completion display
-        }
-
-        // Advanced Mouse Tracking
-        let mouseX = 0, mouseY = 0;
-        let isMouseInside = false;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            
-            if (isMouseInside) {
-                const terminal = document.querySelector('.verification-terminal');
-                const rect = terminal.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                
-                const deltaX = (mouseX - centerX) / (rect.width / 2);
-                const deltaY = (mouseY - centerY) / (rect.height / 2);
-                
-                const rotateY = deltaX * 8;
-                const rotateX = -deltaY * 8;
-                
-                terminal.style.transform = `
-                    perspective(1200px) 
-                    rotateX(${rotateX}deg) 
-                    rotateY(${rotateY}deg) 
-                    translateZ(20px)
-                `;
+                startVerification();
+            }, 1000);
+        });
+        
+        // Add smooth performance optimizations
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                // Pause animations when tab is not visible
+                document.body.style.animationPlayState = 'paused';
+            } else {
+                document.body.style.animationPlayState = 'running';
             }
         });
-
-        document.querySelector('.verification-terminal').addEventListener('mouseenter', () => {
-            isMouseInside = true;
-        });
-
-        document.querySelector('.verification-terminal').addEventListener('mouseleave', () => {
-            isMouseInside = false;
-            const terminal = document.querySelector('.verification-terminal');
-            terminal.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
-        });
-
-        // Initialize System
-        generateNeuralNetwork();
-        setTimeout(updateAuthenticationStatus, 1500);
-        initiateRedirect();
-
-        // Dynamic Particle System
-        setInterval(() => {
-            const network = document.getElementById('neuralNetwork');
-            if (network.children.length > 100) return; // Prevent memory issues
-            
-            const particle = document.createElement('div');
-            particle.className = 'neural-node';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-            particle.style.animationDuration = Math.random() * 3 + 2 + 's';
-            
-            network.appendChild(particle);
-            
-            setTimeout(() => {
-                if (particle.parentNode) {
-                    particle.parentNode.removeChild(particle);
-                }
-            }, 5000);
-        }, 2000);
     </script>
 </body>
 </html>
