@@ -3,179 +3,125 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Update Coming Soon</title>
+  <title>Update Ready - Download Now</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      box-sizing: border-box;
+    }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #141e30, #243b55);
+      color: #fff;
       height: 100vh;
-      background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: #fff;
       flex-direction: column;
       text-align: center;
-      overflow: hidden;
-    }
-
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
     }
 
     h1 {
-      font-size: 3em;
-      margin-bottom: 0.5em;
-      letter-spacing: 2px;
-      text-shadow: 0 0 15px #00fff0;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #00ffae;
+      animation: fadeIn 1s ease-in-out;
     }
 
-    .typewriter {
-      font-size: 1.5em;
-      margin-bottom: 1.5em;
-      height: 30px;
-      overflow: hidden;
-      border-right: 2px solid #fff;
-      white-space: nowrap;
-      animation: typing 4s steps(40, end) infinite, blink 0.75s step-end infinite;
-    }
-
-    @keyframes typing {
-      0% { width: 0; }
-      50% { width: 100%; }
-      100% { width: 0; }
-    }
-
-    @keyframes blink {
-      from, to { border-color: transparent; }
-      50% { border-color: white; }
-    }
-
-    .countdown {
-      display: flex;
-      gap: 20px;
-      margin-bottom: 2em;
-    }
-
-    .countdown div {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #00fff0;
-      min-width: 80px;
-    }
-
-    .countdown span {
-      display: block;
+    p {
       font-size: 1.2em;
-      margin-top: 5px;
+      margin-bottom: 30px;
+      animation: fadeIn 1.2s ease-in-out;
     }
 
-    .btn {
-      padding: 12px 28px;
-      border: none;
-      border-radius: 50px;
-      font-size: 1em;
-      background: #00fff0;
+    button {
+      background: #00ffae;
       color: #000;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.1em;
+      border-radius: 10px;
       cursor: pointer;
-      box-shadow: 0 0 15px #00fff0, 0 0 30px #00fff0;
+      box-shadow: 0 5px 20px rgba(0, 255, 174, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: #00d79f;
+      transform: scale(1.05);
+    }
+
+    .message {
+      margin-top: 40px;
+      background: #202f45;
+      padding: 20px;
+      border-radius: 12px;
+      border: 2px solid #00ffae;
+      max-width: 400px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+
+    .message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      position: fixed;
+      bottom: 15px;
+      color: #aaa;
+      font-size: 0.9em;
+    }
+
+    footer a {
+      color: #00ffae;
+      text-decoration: none;
       transition: 0.3s;
     }
 
-    .btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #00fff0, 0 0 40px #00fff0;
-    }
-
-    @media screen and (max-width: 600px) {
-      h1 { font-size: 2em; }
-
-      .countdown {
-        flex-direction: column;
-        align-items: center;
-      }
+    footer a:hover {
+      text-shadow: 0 0 8px #00ffae;
     }
   </style>
 </head>
 <body>
 
-  <h1>🚧 Update Coming Soon 🚧</h1>
-  <div class="typewriter" id="typewriter-text"></div>
+  <h1>Update is Ready!</h1>
+  <p>Click below to download the latest version of the app.</p>
+  <button id="downloadBtn">Download Updated App</button>
 
-  <div class="countdown">
-    <div><strong id="days">00</strong><span>Days</span></div>
-    <div><strong id="hours">00</strong><span>Hours</span></div>
-    <div><strong id="minutes">00</strong><span>Minutes</span></div>
-    <div><strong id="seconds">00</strong><span>Seconds</span></div>
+  <div class="message" id="msgBox">
+    ✅ Please delete this application and shift to the new version app.
   </div>
 
-  <button class="btn">Stay Tuned</button>
+  <footer>
+    Developed by <a href="https://portfoliohimanshu.vercel.app" target="_blank">Himanshu Raj</a>
+  </footer>
 
   <script>
-    // Typewriter effect
-    const texts = [
-      "Big update dropping after 6 PM...",
-      "New features are almost here!",
-      "We're working hard behind the scenes!"
-    ];
-    let count = 0;
-    let index = 0;
-    const typewriter = document.getElementById('typewriter-text');
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+      const apkLink = "https://storage.googleapis.com/appilder/app/9247ec98570744a37548bac785608261/e3f68d78680ff0a5afe17afa8b4c5378.apk?GoogleAccessId=desktopapi%40appilder-com.iam.gserviceaccount.com&Expires=1749645314&Signature=srYmZ%2FSBozx0rJ4q0eMa0ES1KU7P3ym1d6gbPX0OJ3gk3rBDyN3oFXMpgbuU3vs5qy7shFa%2Fy22cCTYPe3fT9kklzeICpi8DUn6uAQE9PCXcQeNETpJMTKnnkm2PxSj%2Fe2TU33MehiQqmcw%2FgLs8W3ulcSHcANBp61ZGEvn1RzNMXROgeVaPzNpdg3KiZgkImDxpuxhCPBtBWmiASfmmsfZAw6U%2FM16cMCnhhN9nsKPCQlL5E%2F%2F0xb0VXmknP7bDazvda%2FNdwN9R1K8SlVPd6Y7qA1iLFOrMDkSum5nxMrvr2dVAzOrPH7O03Uyr%2B2fGpwaRKtHVsIKbKpSyqI07Mw%3D%3D";
 
-    function type() {
-      if (index < texts[count].length) {
-        typewriter.textContent += texts[count].charAt(index);
-        index++;
-        setTimeout(type, 70);
-      } else {
-        setTimeout(() => {
-          index = 0;
-          typewriter.textContent = "";
-          count = (count + 1) % texts.length;
-          type();
-        }, 2000);
-      }
-    }
-    type();
+      // Auto-start download
+      const a = document.createElement('a');
+      a.href = apkLink;
+      a.download = "new-version-app.apk";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
 
-    // Set countdown to today at 6 PM
-    const targetDate = new Date();
-    targetDate.setHours(18, 0, 0, 0); // 6:00:00 PM
-
-    // If it's past 6 PM now, set target to 6 PM tomorrow
-    const now = new Date();
-    if (now > targetDate) {
-      targetDate.setDate(targetDate.getDate() + 1);
-    }
-
-    function updateCountdown() {
-      const now = new Date();
-      const diff = targetDate - now;
-
-      if (diff <= 0) {
-        document.querySelector('.countdown').innerHTML = "<strong>🎉 Update Released!</strong>";
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-
-      document.getElementById('days').textContent = String(days).padStart(2, '0');
-      document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-      document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-      document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-    }
-
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+      // Show message
+      document.getElementById('msgBox').classList.add('show');
+    });
   </script>
 
 </body>
