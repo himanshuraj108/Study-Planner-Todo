@@ -23,6 +23,22 @@
       text-align: center;
     }
 
+    .logo {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, #4facfe, #6a82fb);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 50px;
+      height: 50px;
+    }
+
     h1 {
       font-size: 2.5em;
       margin-bottom: 20px;
@@ -95,8 +111,12 @@
 </head>
 <body>
 
+  <div class="logo">
+    <img src="logo.png" alt="Study Tracker Logo" />
+  </div>
+
   <h1>Update is Ready!</h1>
-  <p>Click below go to the latest version of the app.</p>
+  <p>Click below to go to the latest version of the app.</p>
   <button id="downloadBtn">Go to updated version</button>
 
   <div class="message" id="msgBox">
@@ -111,7 +131,6 @@
     document.getElementById('downloadBtn').addEventListener('click', () => {
       const apkLink = "https://studyplannertask.vercel.app/";
 
-      // Auto-start download
       const a = document.createElement('a');
       a.href = apkLink;
       a.download = "new-version-app.apk";
@@ -119,7 +138,6 @@
       a.click();
       document.body.removeChild(a);
 
-      // Show message
       document.getElementById('msgBox').classList.add('show');
     });
   </script>
