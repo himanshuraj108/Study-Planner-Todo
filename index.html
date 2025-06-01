@@ -42,30 +42,31 @@
     h1 {
       font-size: 2.5em;
       margin-bottom: 20px;
-      color: #00ffae;
+      color: #6a82fb; /* logo purple-blue */
       animation: fadeIn 1s ease-in-out;
     }
 
     p {
       font-size: 1.2em;
       margin-bottom: 30px;
+      color: #c0cbff; /* lighter purple tone */
       animation: fadeIn 1.2s ease-in-out;
     }
 
     button {
-      background: #00ffae;
-      color: #000;
+      background: #6a82fb;
+      color: #fff;
       border: none;
       padding: 15px 30px;
       font-size: 1.1em;
       border-radius: 10px;
       cursor: pointer;
-      box-shadow: 0 5px 20px rgba(0, 255, 174, 0.4);
+      box-shadow: 0 5px 20px rgba(106, 130, 251, 0.4);
       transition: all 0.3s ease;
     }
 
     button:hover {
-      background: #00d79f;
+      background: #4f6ef5;
       transform: scale(1.05);
     }
 
@@ -74,8 +75,9 @@
       background: #202f45;
       padding: 20px;
       border-radius: 12px;
-      border: 2px solid #00ffae;
+      border: 2px solid #6a82fb;
       max-width: 400px;
+      color: #e0e4ff;
       opacity: 0;
       transform: translateY(20px);
       transition: all 0.6s ease;
@@ -99,13 +101,13 @@
     }
 
     footer a {
-      color: #00ffae;
+      color: #6a82fb;
       text-decoration: none;
       transition: 0.3s;
     }
 
     footer a:hover {
-      text-shadow: 0 0 8px #00ffae;
+      text-shadow: 0 0 8px #6a82fb;
     }
   </style>
 </head>
@@ -115,12 +117,12 @@
     <img src="ChatGPT Image Jun 1, 2025, 11_23_44 PM.png" alt="Study Tracker Logo" />
   </div>
 
-  <h1>Update is Ready!</h1>
-  <p>Click below to go to the latest version of the app.</p>
+  <h1>Study Tracker Update Ready!</h1>
+  <p>Switch to the newest version to stay on top of your progress.</p>
   <button id="downloadBtn">Go to updated version</button>
 
   <div class="message" id="msgBox">
-    ✅ Please delete this application and shift to the new version app.
+    ✅ Please delete this version and shift to the new Study Tracker app.
   </div>
 
   <footer>
@@ -133,7 +135,7 @@
 
       const a = document.createElement('a');
       a.href = apkLink;
-      a.download = "new-version-app.apk";
+      a.download = "study-tracker-latest.apk";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
