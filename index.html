@@ -2,14 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Update Coming Soon</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -98,9 +94,7 @@
     }
 
     @media screen and (max-width: 600px) {
-      h1 {
-        font-size: 2em;
-      }
+      h1 { font-size: 2em; }
 
       .countdown {
         flex-direction: column;
@@ -124,8 +118,12 @@
   <button class="btn">Stay Tuned</button>
 
   <script>
-    // Typing effect
-    const texts = ["Big update dropping soon...", "New features on the way!", "We're working hard behind the scenes."];
+    // Typewriter effect
+    const texts = [
+      "Big update dropping after 6 PM...",
+      "New features are almost here!",
+      "We're working hard behind the scenes!"
+    ];
     let count = 0;
     let index = 0;
     const typewriter = document.getElementById('typewriter-text');
@@ -146,16 +144,22 @@
     }
     type();
 
-    // Countdown
+    // Set countdown to today at 6 PM
     const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 7); // 7 days from now
+    targetDate.setHours(18, 0, 0, 0); // 6:00:00 PM
+
+    // If it's past 6 PM now, set target to 6 PM tomorrow
+    const now = new Date();
+    if (now > targetDate) {
+      targetDate.setDate(targetDate.getDate() + 1);
+    }
 
     function updateCountdown() {
       const now = new Date();
       const diff = targetDate - now;
 
       if (diff <= 0) {
-        document.querySelector('.countdown').innerHTML = "<strong>Update Released!</strong>";
+        document.querySelector('.countdown').innerHTML = "<strong>🎉 Update Released!</strong>";
         return;
       }
 
