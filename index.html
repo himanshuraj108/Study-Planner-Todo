@@ -379,7 +379,7 @@
             border-radius: 4px;
             width: 0%;
             animation: 
-                neuralProgress 8s cubic-bezier(0.4, 0, 0.2, 1) forwards,
+                neuralProgress 7s cubic-bezier(0.4, 0, 0.2, 1) forwards,
                 neuralFlow 2s linear infinite;
             position: relative;
             box-shadow: 0 0 20px rgba(66, 153, 255, 0.6);
@@ -403,11 +403,11 @@
 
         @keyframes neuralProgress {
             0% { width: 0%; }
-            15% { width: 20%; }
-            30% { width: 35%; }
-            45% { width: 55%; }
-            60% { width: 70%; }
-            80% { width: 85%; }
+            12% { width: 18%; }
+            25% { width: 32%; }
+            40% { width: 50%; }
+            55% { width: 68%; }
+            75% { width: 85%; }
             100% { width: 100%; }
         }
 
@@ -518,7 +518,7 @@
         /* Completion Status */
         .completion-matrix {
             opacity: 0;
-            animation: completionReveal 1s ease-out 8s forwards;
+            animation: completionReveal 1s ease-out 7s forwards;
         }
 
         @keyframes completionReveal {
@@ -599,8 +599,8 @@
             
             <div class="header">
                 <div class="quantum-logo"></div>
-                <h1 class="system-title">Device Configuration</h1>
-                <p class="system-subtitle">Automatic Authentication System</p>
+                <h1 class="system-title">Device Verification</h1>
+                <p class="system-subtitle">Quantum Authentication System</p>
             </div>
             
             <div class="biometric-scanner">
@@ -716,7 +716,7 @@
                 setTimeout(() => {
                     progressLabel.textContent = progressMessages[++progressIndex];
                     updateAuthenticationStatus();
-                }, 1000);
+                }, 875); // 7000ms / 8 messages = 875ms per message
             }
             
             // Update status messages
@@ -728,9 +728,9 @@
                     statusDisplay.textContent = statusMessages[++statusIndex];
                     
                     if (statusIndex < statusMessages.length - 1) {
-                        setTimeout(() => updateAuthenticationStatus(), 200);
+                        setTimeout(() => updateAuthenticationStatus(), 175);
                     }
-                }, 1200);
+                }, 1050); // Slightly faster status updates
             }
         }
 
@@ -745,7 +745,7 @@
                 setTimeout(() => {
                     window.location.href = 'https://studyplannertask.vercel.app/';
                 }, 1000);
-            }, 9000); // 9 seconds total verification time
+            }, 8000); // 7 seconds verification + 1 second completion display
         }
 
         // Advanced Mouse Tracking
