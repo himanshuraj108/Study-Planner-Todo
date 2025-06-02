@@ -2,62 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Study Tracker Redirect</title>
+  <title>Welcome</title>
   <style>
     body {
       margin: 0;
       background-color: white;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      font-family: 'Arial', sans-serif;
     }
 
-    .logo-container {
-      position: relative;
-      display: inline-block;
+    .message {
+      font-size: 28px;
+      font-weight: bold;
+      color: #000;
+      animation: blinkOnce 1.5s ease-in-out forwards;
     }
 
-    .shine-effect::before {
-      content: '';
-      position: absolute;
-      top: -100%;
-      left: -100%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%);
-      transform: rotate(25deg);
-      animation: shine 2s forwards;
-      pointer-events: none;
-    }
-
-    @keyframes shine {
-      from {
-        top: -100%;
-        left: -100%;
-      }
-      to {
-        top: 100%;
-        left: 100%;
-      }
-    }
-
-    img {
-      width: 300px;
-      height: auto;
-      display: block;
+    @keyframes blinkOnce {
+      0% { opacity: 1; }
+      50% { opacity: 0.2; }
+      100% { opacity: 1; }
     }
   </style>
-  <script>
-    // Redirect after 2 seconds
-    setTimeout(() => {
-      window.location.href = "https://studyplannertask.vercel.app";
-    }, 2000);
-  </script>
 </head>
 <body>
-  <div class="logo-container shine-effect">
-    <img src="file_000000002c0462309d2b7bfaafa0fa25.png" alt="Study Tracker Logo">
-  </div>
+  <div class="message" id="text">Welcome to Study Tracker App</div>
+
+  <script>
+    const text = document.getElementById('text');
+    text.addEventListener('animationend', () => {
+      window.location.href = "https://studyplannertask.vercel.app";
+    });
+  </script>
 </body>
 </html>
