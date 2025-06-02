@@ -1,41 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Welcome</title>
-  <style>
-    body {
-      margin: 0;
-      background-color: white;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Arial', sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#ffffff">
+    <title>Study Tracker App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    .message {
-      font-size: 28px;
-      font-weight: bold;
-      color: #000;
-      animation: blinkOnce 1.5s ease-in-out forwards;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #ffffff;
+            color: #1e40af;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-    @keyframes blinkOnce {
-      0% { opacity: 1; }
-      50% { opacity: 0.2; }
-      100% { opacity: 1; }
-    }
-  </style>
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .welcome-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+
+
+        .welcome-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 1rem;
+            animation: slideUp 1s ease-out 0.5s both;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.1rem;
+            color: #64748b;
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: slideUp 1s ease-out 0.7s both;
+        }
+
+        .loading-dots {
+            display: flex;
+            gap: 8px;
+            animation: slideUp 1s ease-out 0.9s both;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: #3b82f6;
+            border-radius: 50%;
+            animation: bounce 1.4s ease-in-out infinite both;
+        }
+
+        .dot:nth-child(1) { animation-delay: -0.32s; }
+        .dot:nth-child(2) { animation-delay: -0.16s; }
+        .dot:nth-child(3) { animation-delay: 0s; }
+
+
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: scale(0);
+            }
+            40% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .blink {
+            animation: blink 1.5s ease-in-out;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .welcome-title {
+                font-size: 2rem;
+                padding: 0 1rem;
+            }
+
+            .welcome-subtitle {
+                font-size: 1rem;
+                padding: 0 2rem;
+            }
+
+            .logo {
+                width: 100px;
+                height: 100px;
+                border-radius: 25px;
+            }
+
+            .logo svg {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        /* Android specific optimizations */
+        @media (max-width: 480px) {
+            .welcome-title {
+                font-size: 1.8rem;
+            }
+
+            .welcome-subtitle {
+                font-size: 0.95rem;
+                line-height: 1.4;
+            }
+
+            .logo {
+                width: 90px;
+                height: 90px;
+                border-radius: 22px;
+            }
+
+            .logo svg {
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        /* High DPI displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        }
+
+        /* Dark mode support for Android */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #ffffff;
+                color: #1e40af;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="message" id="text">Welcome to Study Tracker App</div>
+    <div class="welcome-screen" id="welcomeScreen">        
+        <h1 class="welcome-title">Study Tracker App</h1>
+        <p class="welcome-subtitle">Your journey to academic excellence starts here</p>
+        
+        <div class="loading-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
 
-  <script>
-    const text = document.getElementById('text');
-    text.addEventListener('animationend', () => {
-      window.location.href = "https://studyplannertask.vercel.app";
-    });
-  </script>
+    <script>
+        // Optimize for mobile devices
+        function optimizeForMobile() {
+            // Disable zoom on double tap
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function (event) {
+                let now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+
+            // Prevent scrolling
+            document.addEventListener('touchmove', function(e) {
+                e.preventDefault();
+            }, { passive: false });
+
+            // Optimize for Android
+            if (/Android/i.test(navigator.userAgent)) {
+                document.body.style.webkitTouchCallout = 'none';
+                document.body.style.webkitUserSelect = 'none';
+                document.body.style.userSelect = 'none';
+            }
+        }
+
+        function startApp() {
+            optimizeForMobile();
+            
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            
+            // Initial display
+            setTimeout(() => {
+                // Start the blink animation
+                welcomeScreen.classList.add('blink');
+                
+                // After blink completes, redirect
+                setTimeout(() => {
+                    welcomeScreen.classList.add('hidden');
+                    
+                    // Redirect after fade out
+                    setTimeout(() => {
+                        window.location.href = 'https://studyplannertask.vercel.app';
+                    }, 800);
+                }, 1500); // Blink duration
+            }, 2000); // Initial display time
+        }
+
+        // Start when DOM is loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startApp);
+        } else {
+            startApp();
+        }
+
+        // Preload next page for faster transition
+        const link = document.createElement('link');
+        link.rel = 'prefetch';
+        link.href = 'https://studyplannertask.vercel.app';
+        document.head.appendChild(link);
+
+        // Handle visibility changes (Android optimization)
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                // Pause animations when app is in background
+                document.body.style.animationPlayState = 'paused';
+            } else {
+                // Resume animations when app is active
+                document.body.style.animationPlayState = 'running';
+            }
+        });
+    </script>
 </body>
 </html>
