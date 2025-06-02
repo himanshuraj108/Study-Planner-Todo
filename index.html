@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Redirecting...</title>
+  <title>Study Tracker Redirect</title>
   <style>
     body {
       margin: 0;
@@ -13,17 +13,39 @@
       height: 100vh;
     }
 
-    .loader {
-      width: 60px;
-      height: 60px;
-      border: 6px solid #3498db;
-      border-top: 6px solid transparent;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
+    .logo-container {
+      position: relative;
+      display: inline-block;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+    .shine-effect::before {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: -100%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%);
+      transform: rotate(25deg);
+      animation: shine 2s forwards;
+      pointer-events: none;
+    }
+
+    @keyframes shine {
+      from {
+        top: -100%;
+        left: -100%;
+      }
+      to {
+        top: 100%;
+        left: 100%;
+      }
+    }
+
+    img {
+      width: 300px;
+      height: auto;
+      display: block;
     }
   </style>
   <script>
@@ -34,6 +56,8 @@
   </script>
 </head>
 <body>
-  <div class="loader"></div>
+  <div class="logo-container shine-effect">
+    <img src="file-FaweD8uzmUbbY159zCMGvv.png" alt="Study Tracker Logo">
+  </div>
 </body>
 </html>
