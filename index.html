@@ -2,89 +2,63 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#ffffff" />
-  <title>Study Tracker App - Down</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>App Down - Retry</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
     body {
+      margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: #f9fafb;
-      color: #dc2626;
+      background: #ffffff;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      text-align: center;
       overflow: hidden;
     }
 
-    .illustration {
-      max-width: 300px;
-      animation: disconnectWire 2s ease-in-out infinite;
+    .container {
+      text-align: center;
     }
 
-    @keyframes disconnectWire {
-      0% {
-        transform: rotate(0deg);
-      }
-      50% {
-        transform: rotate(-10deg);
-      }
-      100% {
-        transform: rotate(0deg);
-      }
+    .sticker {
+      width: 300px;
+      max-width: 90vw;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
     .message {
-      font-size: 1.8rem;
-      font-weight: 600;
-      margin-top: 1.5rem;
+      font-size: 1.5rem;
       color: #dc2626;
-      animation: fadeInUp 1.2s ease-out forwards, blinkOnce 2s ease-in-out;
+      margin-top: 1rem;
       opacity: 0;
+      animation: fadeIn 1.5s ease-in-out forwards;
+      animation-delay: 1s;
     }
 
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-    }
-
-    @keyframes blinkOnce {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
 
     .retry-button {
-      margin-top: 2rem;
-      background: #1e40af;
-      color: white;
+      margin-top: 1.5rem;
       padding: 12px 24px;
       font-size: 1rem;
-      font-weight: 600;
       border: none;
-      border-radius: 999px;
+      border-radius: 30px;
+      background-color: #1e40af;
+      color: white;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: background 0.3s ease;
     }
 
     .retry-button:hover {
-      background: #3b82f6;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      transform: scale(1.05);
+      background-color: #3b82f6;
     }
 
     .loading {
@@ -92,64 +66,36 @@
       font-size: 1.2rem;
       color: #1e40af;
       margin-top: 1rem;
-      animation: loadingAnimation 1s infinite;
-    }
-
-    @keyframes loadingAnimation {
-      0% { content: "Retrying..."; }
-      50% { content: "Retrying... ."; }
-      100% { content: "Retrying... . ."; }
-    }
-
-    @media (max-width: 480px) {
-      .message {
-        font-size: 1.4rem;
-        padding: 0 1rem;
-      }
-      .illustration {
-        max-width: 220px;
-      }
-      .retry-button {
-        padding: 10px 20px;
-        font-size: 0.95rem;
-      }
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <!-- Use uploaded image -->
+    <img src="file-KSt111WEpiJ8neZtWaMyfg" alt="Disconnected Sticker" class="sticker" />
 
-  <!-- Cartoon-style SVG: A person disconnecting wire -->
-  <svg class="illustration" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
-    <circle cx="100" cy="100" r="100" fill="#E0F2FE"/>
-    <path d="M85 55 L105 75 L125 65 L115 45 L95 55" stroke="#1E40AF" stroke-width="4"/>
-    <path d="M115 45 C125 35, 125 25, 115 15 L105 25" stroke="#F87171" stroke-width="4"/>
-    <circle cx="100" cy="100" r="40" fill="white" stroke="#1E40AF" stroke-width="4"/>
-    <path d="M98 92 L102 92 L102 108 L98 108 L98 92 Z" fill="#F87171"/>
-    <path d="M98 108 L102 108 L102 122 L98 122 L98 108 Z" fill="#1E40AF"/>
-  </svg>
+    <div class="message" id="errorMessage">
+      Due to technical issue, the app is temporarily down.<br />Try again later.
+    </div>
 
-  <div class="message">
-    Due to technical issue, the app is temporarily down.<br/>Please try again later.
+    <div class="loading" id="loadingText">Retrying...</div>
+
+    <button class="retry-button" onclick="retryAction()">Retry</button>
   </div>
-
-  <!-- Loading indicator -->
-  <div class="loading" id="loading">Retrying...</div>
-
-  <button class="retry-button" id="retryButton" onclick="retryAction()">Retry</button>
 
   <script>
     function retryAction() {
-      // Hide message and show loading
-      document.querySelector('.message').style.display = 'none';
-      document.getElementById('loading').style.display = 'block';
-      
-      // Simulate loading for 5 seconds
+      const msg = document.getElementById("errorMessage");
+      const loading = document.getElementById("loadingText");
+
+      msg.style.display = "none";
+      loading.style.display = "block";
+
       setTimeout(() => {
-        document.getElementById('loading').style.display = 'none';
-        document.querySelector('.message').style.display = 'block';
-      }, 5000);  // 5 seconds delay before showing message again
+        loading.style.display = "none";
+        msg.style.display = "block";
+      }, 5000);
     }
   </script>
-  
 </body>
 </html>
