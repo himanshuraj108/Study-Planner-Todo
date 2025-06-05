@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#ffffff" />
-  <title>Study Tracker App - Temporarily Down</title>
+  <title>Study Tracker App - Down</title>
   <style>
     * {
       margin: 0;
@@ -15,74 +14,103 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background: #ffffff;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9fafb;
       color: #dc2626;
-      overflow: hidden;
-      height: 100vh;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    .welcome-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background: #ffffff;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      z-index: 1000;
-      padding: 1rem;
-    }
-
-    .welcome-title {
-      font-size: 2.2rem;
-      font-weight: 700;
+      justify-content: center;
+      height: 100vh;
       text-align: center;
-      color: #dc2626;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: slideUp 1s ease-out forwards, blinkOnce 1.5s ease-in-out;
+      overflow: hidden;
     }
 
-    @keyframes slideUp {
+    .illustration {
+      max-width: 300px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    .message {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-top: 1.5rem;
+      color: #dc2626;
+      animation: fadeInUp 1.2s ease-out forwards, blinkOnce 2s ease-in-out;
+      opacity: 0;
+    }
+
+    @keyframes fadeInUp {
       to {
         opacity: 1;
         transform: translateY(0);
       }
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
     }
 
     @keyframes blinkOnce {
-      0%, 100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.2;
-      }
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
     }
 
-    @media (max-width: 768px) {
-      .welcome-title {
-        font-size: 1.8rem;
-      }
+    .retry-button {
+      margin-top: 2rem;
+      background: #1e40af;
+      color: white;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .retry-button:hover {
+      background: #3b82f6;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transform: scale(1.05);
     }
 
     @media (max-width: 480px) {
-      .welcome-title {
-        font-size: 1.6rem;
+      .message {
+        font-size: 1.4rem;
+        padding: 0 1rem;
+      }
+      .illustration {
+        max-width: 220px;
+      }
+      .retry-button {
+        padding: 10px 20px;
+        font-size: 0.95rem;
       }
     }
   </style>
 </head>
-
 <body>
-  <div class="welcome-screen">
-    <h1 class="welcome-title">Due to technical issue app is temporarily down. Try after sometime.</h1>
-  </div>
-</body>
 
+  <!-- Cartoon-style SVG -->
+  <svg class="illustration" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="256" cy="256" r="256" fill="#E0F2FE"/>
+    <path d="M330 180h-40v-40c0-11-9-20-20-20h-28c-11 0-20 9-20 20v40h-40c-11 0-20 9-20 20v28c0 11 9 20 20 20h40v40c0 11 9 20 20 20h28c11 0 20-9 20-20v-40h40c11 0 20-9 20-20v-28c0-11-9-20-20-20z" fill="#3B82F6"/>
+    <path d="M392 320h-48c-6 0-12 5-12 12v16c0 6 5 12 12 12h48c6 0 12-5 12-12v-16c0-6-5-12-12-12zm-224 0h-48c-6 0-12 5-12 12v16c0 6 5 12 12 12h48c6 0 12-5 12-12v-16c0-6-5-12-12-12z" fill="#1E40AF"/>
+    <path d="M248 340l-40 48h24v24h32v-24h24l-40-48z" fill="#F87171"/>
+  </svg>
+
+  <div class="message">
+    Due to technical issue, the app is temporarily down.<br/>Please try again later.
+  </div>
+
+  <button class="retry-button" onclick="location.reload()">Retry</button>
+
+</body>
 </html>
