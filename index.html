@@ -1,98 +1,704 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>App Down</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connection Lost</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: #f8fafc;
-      font-family: 'Segoe UI', sans-serif;
-      color: #1e3a8a;
-      text-align: center;
-    }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
 
-    h1 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 30px;
-    }
+        /* Floating particles background */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
 
-    .retry-btn {
-      padding: 10px 20px;
-      font-size: 1rem;
-      background-color: #1e40af;
-      color: white;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
 
-    .retry-btn:hover {
-      background-color: #3b82f6;
-    }
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 3s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 4s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 2s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 1s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 3s; }
 
-    .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      background: white;
-      padding: 20px 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
-      text-align: center;
-      font-size: 1.2rem;
-      color: #dc2626;
-      z-index: 999;
-      transition: transform 0.3s ease;
-    }
+        .main-container {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
 
-    .popup.show {
-      transform: translate(-50%, -50%) scale(1);
-    }
+        .scene-container {
+            position: relative;
+            width: 500px;
+            height: 350px;
+            margin: 0 auto 40px;
+        }
 
-    .popup button {
-      margin-top: 15px;
-      padding: 8px 16px;
-      background-color: #1e40af;
-      color: white;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-    }
-  </style>
+        /* Robot character */
+        .robot {
+            position: absolute;
+            left: 80px;
+            top: 150px;
+            width: 80px;
+            height: 120px;
+            animation: robotWalk 3s ease-in-out infinite;
+        }
+
+        .robot-head {
+            width: 50px;
+            height: 45px;
+            background: linear-gradient(145deg, #3498db, #2980b9);
+            border-radius: 15px;
+            position: relative;
+            margin: 0 auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .robot-head::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 8px;
+            width: 8px;
+            height: 8px;
+            background: #e74c3c;
+            border-radius: 50%;
+            box-shadow: 20px 0 0 #e74c3c;
+            animation: robotBlink 2s ease-in-out infinite;
+        }
+
+        .robot-head::after {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 15px;
+            width: 20px;
+            height: 6px;
+            background: #34495e;
+            border-radius: 3px;
+        }
+
+        .robot-antenna {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 15px;
+            background: #95a5a6;
+        }
+
+        .robot-antenna::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -3px;
+            width: 8px;
+            height: 8px;
+            background: #f39c12;
+            border-radius: 50%;
+            animation: antennaGlow 1.5s ease-in-out infinite;
+        }
+
+        .robot-body {
+            width: 60px;
+            height: 50px;
+            background: linear-gradient(145deg, #ecf0f1, #bdc3c7);
+            border-radius: 15px;
+            margin: 10px auto;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .robot-body::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 30px;
+            height: 20px;
+            background: #2c3e50;
+            border-radius: 5px;
+        }
+
+        .robot-arms {
+            position: absolute;
+            top: 20px;
+            right: -20px;
+            width: 15px;
+            height: 35px;
+            background: #3498db;
+            border-radius: 8px;
+            transform-origin: top;
+            animation: robotArmMove 2s ease-in-out infinite;
+            box-shadow: -40px 0 0 #3498db;
+        }
+
+        .robot-legs {
+            width: 50px;
+            height: 25px;
+            background: #2c3e50;
+            border-radius: 0 0 10px 10px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .robot-legs::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 8px;
+            width: 12px;
+            height: 8px;
+            background: #34495e;
+            border-radius: 0 0 6px 6px;
+            box-shadow: 22px 0 0 #34495e;
+        }
+
+        /* Server */
+        .server {
+            position: absolute;
+            right: 150px;
+            top: 100px;
+            width: 100px;
+            height: 140px;
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            animation: serverShake 0.8s ease-in-out infinite alternate;
+        }
+
+        .server-lights {
+            position: absolute;
+            top: 20px;
+            left: 15px;
+            width: 70px;
+            height: 10px;
+        }
+
+        .server-light {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            animation: serverError 1.2s ease-in-out infinite;
+        }
+
+        .server-light:nth-child(1) { background: #e74c3c; animation-delay: 0s; }
+        .server-light:nth-child(2) { background: #f39c12; animation-delay: 0.3s; }
+        .server-light:nth-child(3) { background: #e74c3c; animation-delay: 0.6s; }
+
+        .server-vents {
+            position: absolute;
+            top: 50px;
+            left: 15px;
+            width: 70px;
+            height: 60px;
+        }
+
+        .server-vent {
+            width: 100%;
+            height: 3px;
+            background: #1a252f;
+            margin-bottom: 8px;
+            border-radius: 2px;
+        }
+
+        /* Disconnected cable */
+        .cable {
+            position: absolute;
+            left: 150px;
+            top: 180px;
+            width: 120px;
+            height: 8px;
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+            border-radius: 4px;
+            transform-origin: right;
+            animation: cableSwing 2.5s ease-in-out infinite;
+        }
+
+        .cable::before {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: -6px;
+            width: 20px;
+            height: 20px;
+            background: #34495e;
+            border-radius: 50%;
+            border: 3px solid #e74c3c;
+        }
+
+        .cable::after {
+            content: '';
+            position: absolute;
+            right: -12px;
+            top: -6px;
+            width: 20px;
+            height: 20px;
+            background: #34495e;
+            border-radius: 50%;
+            border: 3px solid #95a5a6;
+        }
+
+        /* Sparks */
+        .sparks {
+            position: absolute;
+            right: 135px;
+            top: 180px;
+            width: 30px;
+            height: 30px;
+        }
+
+        .spark {
+            position: absolute;
+            width: 3px;
+            height: 8px;
+            background: #f1c40f;
+            border-radius: 50%;
+            animation: sparkFly 0.6s ease-out infinite;
+        }
+
+        .spark:nth-child(1) { animation-delay: 0s; top: 5px; left: 10px; }
+        .spark:nth-child(2) { animation-delay: 0.2s; top: 15px; left: 5px; }
+        .spark:nth-child(3) { animation-delay: 0.4s; top: 10px; left: 15px; }
+
+        /* Smoke clouds */
+        .smoke-cloud {
+            position: absolute;
+            right: 120px;
+            top: 60px;
+            width: 80px;
+            height: 50px;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(149, 165, 166, 0.8);
+            border-radius: 50px;
+            animation: cloudFloat 4s ease-in-out infinite;
+        }
+
+        .cloud:nth-child(1) {
+            width: 25px;
+            height: 25px;
+            top: 20px;
+            left: 0px;
+            animation-delay: 0s;
+        }
+
+        .cloud:nth-child(2) {
+            width: 35px;
+            height: 35px;
+            top: 10px;
+            left: 15px;
+            animation-delay: 0.5s;
+        }
+
+        .cloud:nth-child(3) {
+            width: 30px;
+            height: 30px;
+            top: 25px;
+            left: 35px;
+            animation-delay: 1s;
+        }
+
+        /* Message card */
+        .error-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .error-emoji {
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .error-title {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .error-subtitle {
+            font-size: 1.3em;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .error-message {
+            font-size: 1.1em;
+            color: #5a6c7d;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .countdown-display {
+            font-size: 1.4em;
+            color: #e74c3c;
+            font-weight: 600;
+            margin-bottom: 25px;
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        .retry-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .retry-button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .retry-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 10% auto;
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.4s ease;
+        }
+
+        .modal-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .modal-text {
+            color: #7f8c8d;
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .modal-button {
+            background: linear-gradient(45deg, #00b894, #00cec9);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .modal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 184, 148, 0.3);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        @keyframes robotWalk {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            25% { transform: translateX(5px) rotate(2deg); }
+            75% { transform: translateX(-5px) rotate(-2deg); }
+        }
+
+        @keyframes robotBlink {
+            0%, 90% { opacity: 1; }
+            95% { opacity: 0.3; }
+        }
+
+        @keyframes antennaGlow {
+            0%, 100% { box-shadow: 0 0 5px #f39c12; }
+            50% { box-shadow: 0 0 20px #f39c12, 0 0 30px #f39c12; }
+        }
+
+        @keyframes robotArmMove {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(-15deg); }
+        }
+
+        @keyframes serverShake {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-3px); }
+        }
+
+        @keyframes serverError {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes cableSwing {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(-8deg); }
+        }
+
+        @keyframes sparkFly {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-15px) scale(0.5); }
+        }
+
+        @keyframes cloudFloat {
+            0%, 100% { transform: translateY(0); opacity: 0.6; }
+            50% { transform: translateY(-10px); opacity: 0.9; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes modalSlideIn {
+            from { transform: translateY(-50px) scale(0.9); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .scene-container {
+                width: 350px;
+                height: 280px;
+                transform: scale(0.8);
+            }
+            
+            .error-card {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+            
+            .error-title {
+                font-size: 2em;
+            }
+            
+            .error-subtitle {
+                font-size: 1.1em;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
 
-  <h1>Due to technical issue, the app is temporarily down. Try again later.</h1>
-  <button class="retry-btn" onclick="retry()">Retry</button>
+    <div class="main-container">
+        <div class="scene-container">
+            <!-- Server -->
+            <div class="server">
+                <div class="server-lights">
+                    <div class="server-light"></div>
+                    <div class="server-light"></div>
+                    <div class="server-light"></div>
+                </div>
+                <div class="server-vents">
+                    <div class="server-vent"></div>
+                    <div class="server-vent"></div>
+                    <div class="server-vent"></div>
+                    <div class="server-vent"></div>
+                    <div class="server-vent"></div>
+                </div>
+            </div>
 
-  <div class="popup" id="popup">
-    <div>Try again later</div>
-    <button onclick="location.reload()">OK</button>
-  </div>
+            <!-- Disconnected cable -->
+            <div class="cable"></div>
 
-  <script>
-    function retry() {
-      const popup = document.getElementById('popup');
-      setTimeout(() => {
-        popup.classList.add('show');
-      }, 5000);
-    }
-  </script>
+            <!-- Sparks -->
+            <div class="sparks">
+                <div class="spark"></div>
+                <div class="spark"></div>
+                <div class="spark"></div>
+            </div>
 
+            <!-- Smoke -->
+            <div class="smoke-cloud">
+                <div class="cloud"></div>
+                <div class="cloud"></div>
+                <div class="cloud"></div>
+            </div>
+        </div>
+
+        <div class="error-card">
+            <h1 class="error-title">Connection Lost</h1>
+            <p class="error-message">
+                Due to technical issue app is temporarily down. Try after sometime.
+            </p>
+            <div class="countdown-display" id="countdown">
+                 Auto-retry in <span id="timer">5</span> seconds
+            </div>
+            <button class="retry-button" id="retryBtn" onclick="showRetryModal()" disabled>
+                Try Again Now
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="retryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon"></div>
+            <h2 class="modal-title">Connection Still Down</h2>
+            <p class="modal-text">
+                We're still working on fixing the connection. Please check back in a few minutes 
+                while our team resolves the issue.
+            </p>
+            <button class="modal-button" onclick="closeModal()">Got It</button>
+        </div>
+    </div>
+
+    <script>
+        let countdown = 5;
+        let countdownInterval;
+
+        function startCountdown() {
+            const timerElement = document.getElementById('timer');
+            const retryBtn = document.getElementById('retryBtn');
+            const countdownDisplay = document.getElementById('countdown');
+            
+            countdownInterval = setInterval(() => {
+                countdown--;
+                timerElement.textContent = countdown;
+                
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownDisplay.textContent = 'Ready to retry!';
+                    countdownDisplay.style.color = '#00b894';
+                    retryBtn.disabled = false;
+                    retryBtn.textContent = 'Try Connecting Again';
+                }
+            }, 1000);
+        }
+
+        function showRetryModal() {
+            document.getElementById('retryModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('retryModal').style.display = 'none';
+            resetPage();
+        }
+
+        function resetPage() {
+            countdown = 5;
+            document.getElementById('timer').textContent = countdown;
+            document.getElementById('countdown').textContent = 'Auto-retry in 5 seconds';
+            document.getElementById('countdown').style.color = '#e74c3c';
+            document.getElementById('retryBtn').disabled = true;
+            document.getElementById('retryBtn').textContent = 'Try Again Now';
+            startCountdown();
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('retryModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Start countdown when page loads
+        window.onload = function() {
+            startCountdown();
+        }
+    </script>
 </body>
 </html>
