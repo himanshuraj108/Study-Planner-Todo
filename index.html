@@ -4,66 +4,78 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#ffffff" />
-  <title>Study Tracker App - Down</title>
+  <title>Study Tracker App - Temporarily Down</title>
   <style>
+    /* Reset some basic styling */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
     }
-
     body {
       font-family: 'Segoe UI', sans-serif;
       background: #f9fafb;
       color: #dc2626;
+      overflow: hidden;
+      height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      position: relative;
+    }
+    /* Main content container */
+    #mainContent {
       text-align: center;
-      overflow: hidden;
     }
-
-    .illustration {
-      max-width: 300px;
-      animation: float 3s ease-in-out infinite;
+    /* Animation container for the SVG scene */
+    .animation-container {
+      margin-bottom: 1.5rem;
     }
-
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
+    /* SVG styling */
+    svg {
+      max-width: 400px;
+      width: 100%;
+      height: auto;
     }
-
+    /* Keyframes for the disconnect animation */
+    @keyframes disconnectArm {
+      0% { transform: translate(0, 0); }
+      45% { transform: translate(-40px, -10px); }
+      55% { transform: translate(-40px, -10px); }
+      100% { transform: translate(0, 0); }
+    }
+    @keyframes cableFade {
+      0%, 40%, 100% { opacity: 1; }
+      50%, 70% { opacity: 0; }
+    }
+    /* Apply animations to the SVG elements */
+    #arm {
+      transform-origin: 100px 130px; /* roughly the shoulder pivot */
+      animation: disconnectArm 3s infinite;
+    }
+    #cable {
+      animation: cableFade 3s infinite;
+    }
+    /* Message styling */
     .message {
       font-size: 1.8rem;
       font-weight: 600;
-      margin-top: 1.5rem;
       color: #dc2626;
+      margin-bottom: 2rem;
       animation: fadeInUp 1.2s ease-out forwards, blinkOnce 2s ease-in-out;
       opacity: 0;
     }
-
     @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-
     @keyframes blinkOnce {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.3; }
     }
-
+    /* Retry button styling */
     .retry-button {
-      margin-top: 2rem;
       background: #1e40af;
       color: white;
       padding: 12px 24px;
@@ -74,20 +86,49 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
-
     .retry-button:hover {
       background: #3b82f6;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       transform: scale(1.05);
     }
-
+    /* Loading overlay */
+    #loadingOverlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(249,250,251,0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      display: none;
+    }
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #1e40af;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .loading-text {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #1e40af;
+    }
+    /* Responsive tweaks */
     @media (max-width: 480px) {
       .message {
         font-size: 1.4rem;
         padding: 0 1rem;
-      }
-      .illustration {
-        max-width: 220px;
       }
       .retry-button {
         padding: 10px 20px;
@@ -97,20 +138,47 @@
   </style>
 </head>
 <body>
-
-  <!-- Cartoon-style SVG -->
-  <svg class="illustration" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="256" cy="256" r="256" fill="#E0F2FE"/>
-    <path d="M330 180h-40v-40c0-11-9-20-20-20h-28c-11 0-20 9-20 20v40h-40c-11 0-20 9-20 20v28c0 11 9 20 20 20h40v40c0 11 9 20 20 20h28c11 0 20-9 20-20v-40h40c11 0 20-9 20-20v-28c0-11-9-20-20-20z" fill="#3B82F6"/>
-    <path d="M392 320h-48c-6 0-12 5-12 12v16c0 6 5 12 12 12h48c6 0 12-5 12-12v-16c0-6-5-12-12-12zm-224 0h-48c-6 0-12 5-12 12v16c0 6 5 12 12 12h48c6 0 12-5 12-12v-16c0-6-5-12-12-12z" fill="#1E40AF"/>
-    <path d="M248 340l-40 48h24v24h32v-24h24l-40-48z" fill="#F87171"/>
-  </svg>
-
-  <div class="message">
-    Due to technical issue, the app is temporarily down.<br/>Please try again later.
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay">
+    <div class="spinner"></div>
+    <div class="loading-text">Loading...</div>
   </div>
 
-  <button class="retry-button" onclick="location.reload()">Retry</button>
+  <!-- Main Content -->
+  <div id="mainContent">
+    <div class="animation-container">
+      <!-- Animated SVG: Cartoon person disconnecting cable from server -->
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <!-- Server: A rounded rectangle -->
+        <rect x="280" y="80" width="80" height="140" rx="8" fill="#1E40AF" />
+        <!-- Cable: from server toward the person -->
+        <path id="cable" d="M280,150 C240,150 190,150 150,150" stroke="#3B82F6" stroke-width="4" fill="none" />
+        <!-- Cartoon Person: head, body, and disconnecting arm -->
+        <!-- Head -->
+        <circle cx="100" cy="100" r="30" fill="#FBBF24" />
+        <!-- Body -->
+        <rect x="85" y="130" width="30" height="50" fill="#F87171" />
+        <!-- Arm: starting from the body and reaching toward the cable -->
+        <line id="arm" x1="100" y1="130" x2="150" y2="150" stroke="#F87171" stroke-width="6" stroke-linecap="round" />
+      </svg>
+    </div>
+    <div class="message">
+      Due to technical issue, the app is temporarily down.<br />Please try again later.
+    </div>
+    <button class="retry-button" id="retryBtn">Retry</button>
+  </div>
 
+  <script>
+    // When the Retry button is clicked, show the loading overlay for 5 seconds,
+    // then hide it while showing the main content again.
+    document.getElementById("retryBtn").addEventListener("click", function () {
+      document.getElementById("mainContent").style.display = "none";
+      document.getElementById("loadingOverlay").style.display = "flex";
+      setTimeout(function() {
+        document.getElementById("loadingOverlay").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+      }, 5000);
+    });
+  </script>
 </body>
 </html>
