@@ -13,126 +13,37 @@
 
     body {
       height: 100vh;
-      background: #f1f5f9;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
+      background: #f8fafc;
       font-family: 'Segoe UI', sans-serif;
-      overflow: hidden;
+      color: #1e3a8a;
+      text-align: center;
     }
 
-    .scene {
-      position: relative;
-      width: 300px;
-      height: 300px;
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 30px;
     }
 
-    /* Server box */
-    .server {
-      width: 120px;
-      height: 120px;
-      background: linear-gradient(#1e293b, #0f172a);
-      border-radius: 8px;
-      position: absolute;
-      top: 40px;
-      left: 90px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
-    }
-
-    /* Smoke effect */
-    .smoke {
-      position: absolute;
-      top: 10px;
-      left: 105px;
-      width: 60px;
-      height: 60px;
-      background: radial-gradient(rgba(128,128,128,0.4), transparent);
-      border-radius: 50%;
-      animation: smoke 3s infinite;
-      opacity: 0.7;
-    }
-
-    @keyframes smoke {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 0.6;
-      }
-      50% {
-        transform: translateY(-20px) scale(1.2);
-        opacity: 0.3;
-      }
-      100% {
-        transform: translateY(-40px) scale(1.4);
-        opacity: 0;
-      }
-    }
-
-    /* Wire */
-    .wire {
-      width: 150px;
-      height: 10px;
-      background: #d97706;
-      border-radius: 5px;
-      position: absolute;
-      top: 160px;
-      left: 40px;
-      transform: rotate(30deg);
-      box-shadow: 0 0 10px #facc15;
-      animation: spark 1s infinite alternate;
-    }
-
-    @keyframes spark {
-      0% {
-        box-shadow: 0 0 10px #facc15;
-      }
-      100% {
-        box-shadow: 0 0 20px #fbbf24, 0 0 30px #fde047;
-      }
-    }
-
-    .wire::after {
-      content: '';
-      width: 20px;
-      height: 20px;
-      background: #facc15;
-      position: absolute;
-      right: 0;
-      top: -5px;
-      border-radius: 50%;
-      box-shadow: 0 0 10px #facc15;
-    }
-
-    /* Retry button */
     .retry-btn {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
       padding: 10px 20px;
+      font-size: 1rem;
       background-color: #1e40af;
       color: white;
       border: none;
       border-radius: 20px;
       cursor: pointer;
-      font-size: 1rem;
+      transition: background-color 0.3s;
     }
 
     .retry-btn:hover {
       background-color: #3b82f6;
     }
 
-    /* Loading text */
-    .loading {
-      position: absolute;
-      bottom: 60px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 1.1rem;
-      color: #1e3a8a;
-      display: none;
-    }
-
-    /* Popup */
     .popup {
       position: fixed;
       top: 50%;
@@ -145,18 +56,12 @@
       text-align: center;
       font-size: 1.2rem;
       color: #dc2626;
-      animation: none;
-      z-index: 1000;
+      z-index: 999;
+      transition: transform 0.3s ease;
     }
 
     .popup.show {
-      animation: popIn 0.5s forwards;
-    }
-
-    @keyframes popIn {
-      to {
-        transform: translate(-50%, -50%) scale(1);
-      }
+      transform: translate(-50%, -50%) scale(1);
     }
 
     .popup button {
@@ -171,34 +76,23 @@
   </style>
 </head>
 <body>
-  <div class="scene">
-    <div class="server"></div>
-    <div class="smoke"></div>
-    <div class="wire"></div>
-    <div class="loading" id="loading">Retrying...</div>
-    <button class="retry-btn" onclick="retry()">Retry</button>
-  </div>
+
+  <h1>Due to technical issue, the app is temporarily down. Try again later.</h1>
+  <button class="retry-btn" onclick="retry()">Retry</button>
 
   <div class="popup" id="popup">
     <div>Try again later</div>
-    <button onclick="reloadPage()">OK</button>
+    <button onclick="location.reload()">OK</button>
   </div>
 
   <script>
     function retry() {
-      const loading = document.getElementById("loading");
-      const popup = document.getElementById("popup");
-      loading.style.display = "block";
-
+      const popup = document.getElementById('popup');
       setTimeout(() => {
-        loading.style.display = "none";
-        popup.classList.add("show");
+        popup.classList.add('show');
       }, 5000);
     }
-
-    function reloadPage() {
-      location.reload();
-    }
   </script>
+
 </body>
 </html>
