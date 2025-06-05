@@ -1,293 +1,88 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-
-    <meta name="theme-color" content="#ffffff">
-
-    <title>Study Tracker App</title>
-
-    <style>
-
-        * {
-
-            margin: 0;
-
-            padding: 0;
-
-            box-sizing: border-box;
-
-            -webkit-tap-highlight-color: transparent;
-
-        }
-
-
-
-        body {
-
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-
-            background: #ffffff;
-
-            color: #1e40af;
-
-            overflow: hidden;
-
-            -webkit-font-smoothing: antialiased;
-
-            -moz-osx-font-smoothing: grayscale;
-
-            height: 100vh;
-
-        }
-
-
-
-        .welcome-screen {
-
-            position: fixed;
-
-            top: 0;
-
-            left: 0;
-
-            width: 100%;
-
-            height: 100vh;
-
-            background: #ffffff;
-
-            display: flex;
-
-            flex-direction: column;
-
-            justify-content: center;
-
-            align-items: center;
-
-            z-index: 1000;
-
-        }
-
-
-
-        .welcome-title {
-
-            font-size: 2.5rem;
-
-            font-weight: 800;
-
-            background: linear-gradient(135deg, #1e40af, #3b82f6);
-
-            -webkit-background-clip: text;
-
-            -webkit-text-fill-color: transparent;
-
-            background-clip: text;
-
-            text-align: center;
-
-            opacity: 0;
-
-            transform: translateY(30px);
-
-            animation: slideUp 0.8s ease-out forwards;
-
-        }
-
-
-
-        @keyframes slideUp {
-
-            to {
-
-                opacity: 1;
-
-                transform: translateY(0);
-
-            }
-
-        }
-
-
-
-        /* Mobile Optimizations */
-
-        @media (max-width: 768px) {
-
-            .welcome-title {
-
-                font-size: 2rem;
-
-                padding: 0 1rem;
-
-            }
-
-        }
-
-
-
-        /* Android specific optimizations */
-
-        @media (max-width: 480px) {
-
-            .welcome-title {
-
-                font-size: 1.8rem;
-
-            }
-
-        }
-
-
-
-        /* Dark mode support for Android */
-
-        @media (prefers-color-scheme: dark) {
-
-            body {
-
-                background: #ffffff;
-
-                color: #1e40af;
-
-            }
-
-        }
-
-    </style>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Study Tracker App - Temporarily Down</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #ffffff;
+      color: #dc2626;
+      overflow: hidden;
+      height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .welcome-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 1rem;
+    }
+
+    .welcome-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      text-align: center;
+      color: #dc2626;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: slideUp 1s ease-out forwards, blinkOnce 1.5s ease-in-out;
+    }
+
+    @keyframes slideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes blinkOnce {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.2;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .welcome-title {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .welcome-title {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
-
-    <div class="welcome-screen" id="welcomeScreen">
-
-        <h1 class="welcome-title" style={color:red;}>Due to technical issue app is temporary down.Try after sometime</h1>
-
-    </div>
-
-
-
-    <script>
-
-        // Optimize for mobile devices
-
-        function optimizeForMobile() {
-
-            // Disable zoom on double tap
-
-            let lastTouchEnd = 0;
-
-            document.addEventListener('touchend', function (event) {
-
-                let now = (new Date()).getTime();
-
-                if (now - lastTouchEnd <= 300) {
-
-                    event.preventDefault();
-
-                }
-
-                lastTouchEnd = now;
-
-            }, false);
-
-
-
-            // Prevent scrolling
-
-            document.addEventListener('touchmove', function(e) {
-
-                e.preventDefault();
-
-            }, { passive: false });
-
-
-
-            // Optimize for Android
-
-            if (/Android/i.test(navigator.userAgent)) {
-
-                document.body.style.webkitTouchCallout = 'none';
-
-                document.body.style.webkitUserSelect = 'none';
-
-                document.body.style.userSelect = 'none';
-
-            }
-
-        }
-
-
-
-        function startApp() {
-
-            optimizeForMobile();
-
-            
-
-            // Show text animation immediately, then redirect after animation completes
-
-            setTimeout(() => {
-
-                window.location.href = '#';
-
-            }, 1000); // Redirect after text animation completes (0.8s + small buffer)
-
-        }
-
-
-
-        // Start when DOM is loaded
-
-        if (document.readyState === 'loading') {
-
-            document.addEventListener('DOMContentLoaded', startApp);
-
-        } else {
-
-            startApp();
-
-        }
-
-
-
-        // Preload next page for faster transition
-
-        const link = document.createElement('link');
-
-        link.rel = 'prefetch';
-
-        link.href = '#';
-
-        document.head.appendChild(link);
-
-
-
-        // Handle visibility changes (Android optimization)
-
-        document.addEventListener('visibilitychange', function() {
-
-            if (document.hidden) {
-
-                document.body.style.animationPlayState = 'paused';
-
-            } else {
-
-                document.body.style.animationPlayState = 'running';
-
-            }
-
-        });
-
-    </script>
-
+  <div class="welcome-screen">
+    <h1 class="welcome-title">Due to technical issue app is temporarily down. Try after sometime.</h1>
+  </div>
 </body>
 
 </html>
